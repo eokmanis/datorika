@@ -1,1 +1,76 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dzimšanas dienas skaitītājs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            margin: 5px;
+            padding: 8px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gaidot dzimšanas dienu!</h1>
+    <hr>
+    <h4>Ievadi pilnu datumu, kad Tev būs tuvākā dzimšanas diena</h4>
+    
+    <label for="gads">Gads:</label>
+    <input type="number" id="gads" placeholder="Gads"><br>
+    
+    <label for="menesis">Mēnesis:</label>
+    <input type="number" id="menesis" placeholder="Mēnesis"><br>
+    
+    <label for="datums">Diena:</label>
+    <input type="number" id="datums" placeholder="Diena"><br><br>
+    
+    <button onclick="aprekinaDienas()">Aprēķināt dienu skaitu līdz dzimšanas dienai</button>
+    
+    <p><strong>Līdz svētkiem atlikušas </strong>
+        <input type="text" id="dienasRezultats" readonly>
+        <strong> dienas : ))</strong>
+    </p>
+    
+    <footer>
+        <a href="index.html">
+            <h3 class="veidots">Atpakaļ uz portfolio</h3>
+        </a>
+    </footer>
+    
+    <script>
+        function aprekinaDienas() {
+            let gads = document.getElementById("gads").value;
+            let menesis = document.getElementById("menesis").value - 1;
+            let datums = document.getElementById("datums").value;
+            
+            let sodiena = new Date();
+            let nakamaDzimDiena = new Date(sodiena.getFullYear(), menesis, datums);
+            
+            if (nakamaDzimDiena < sodiena) {
+                nakamaDzimDiena.setFullYear(sodiena.getFullYear() + 1);
+            }
+            
+            let atlikusasDienas = Math.ceil((nakamaDzimDiena - sodiena) / (1000 * 60 * 60 * 24));
+            document.getElementById("dienasRezultats").value = atlikusasDienas;
+        }
+    </script>
+</body>
+</html>
