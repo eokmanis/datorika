@@ -3,152 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datu lejupielādes kalkulators</title>
+    <title>Informācijas daudzuma mērvienības</title>
     <style>
         body {
+            background-image: url('https://cdn.glitch.global/03c8289f-7ec0-49f2-b0eb-162f7d441bc9/cipari.jpg?v=1743153836090');
+            background-size: contain; 
+            background-repeat: repeat; 
             font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
         }
-        
-        .calculator {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .container {
+            width: 550px;
+            padding: -10px;
+            background-color: rgb(220, 220, 0);
+            font-size: 20px;
         }
-        
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
+        input {
+            width: 120px;
         }
-        
-        .input-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        
-        .radio-group {
-            margin: 15px 0;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        
-        .radio-option {
-            margin: 10px 0;
-        }
-        
-        .result {
-            background-color: white;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .result-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #2c3e50;
-            text-decoration: none;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
+        button {
+            margin-top: 5px;
         }
     </style>
+    <script>
+        function convert() {
+            let gb = document.getElementById("gb").value;
+            document.getElementById("mb").value = gb * 1000;
+            document.getElementById("mib").value = (gb * 1024).toFixed(2);
+        }
+    </script>
 </head>
 <body>
-    <div class="calculator">
-        <h1>Datu lejupielādes kalkulators</h1>
-        
-        <div class="input-group">
-            <label for="seconds">Lejupielādes ilgums (sekundes), ja interneta ātrums ir 25Mb/s:</label>
-            <input type="number" id="seconds" min="1" placeholder="Ievadiet sekunžu skaitu">
-        </div>
-        
-        <div class="radio-group">
-            <label>Rādīt rezultātu:</label>
-            <div class="radio-option">
-                <input type="radio" id="kibibytes" name="unit" value="kibibytes" checked>
-                <label for="kibibytes">Kibibaiti (KiB) - 1 KiB = 1024 baiti</label>
-            </div>
-            <div class="radio-option">
-                <input type="radio" id="kilobytes" name="unit" value="kilobytes">
-                <label for="kilobytes">Kilobaiti (KB) - 1 KB = 1000 baiti</label>
-            </div>
-        </div>
-        
-        <div id="result" class="result">
-            <div class="result-title">Lejupielādētais datu daudzums:</div>
-            <div id="mainResult"></div>
-        </div>
+    <h1>Informācijas daudzuma mērvienības</h1>
+    <div class="container">
+        <form>
+            <p>
+                <input type="number" id="gb" value="2"> GB =
+            </p>
+            <p>
+                <button type="button" onclick="convert()">Izteikt megabaitos</button>
+                <input type="text" id="mb" readonly> MB
+            </p>
+            <p>
+                <button type="button" onclick="convert()">Izteikt mibibaitos</button>
+                <input type="text" id="mib" readonly> MiB
+            </p>
+        </form>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const SPEED_MBPS = 25;
-            const secondsInput = document.getElementById('seconds');
-            const unitRadios = document.querySelectorAll('input[name="unit"]');
-            const resultDiv = document.getElementById('result');
-            const mainResultDiv = document.getElementById('mainResult');
-            
-            secondsInput.addEventListener('input', calculateData);
-            unitRadios.forEach(radio => {
-                radio.addEventListener('change', calculateData);
-            });
-            
-            function calculateData() {
-                const seconds = parseFloat(secondsInput.value);
-                const unit = document.querySelector('input[name="unit"]:checked').value;
-                
-                if (!seconds || seconds <= 0) {
-                    resultDiv.style.display = 'none';
-                    return;
-                }
-                
-                const totalBits = SPEED_MBPS * 1000000 * seconds;
-                
-                let result, unitText;
-                
-                if (unit === "kibibytes") {
-                    result = totalBits / 8 / 1024;
-                    unitText = "KiB";
-                } else {
-                    result = totalBits / 8 / 1000;
-                    unitText = "KB";
-                }
-                
-                mainResultDiv.innerHTML = `<strong>${result.toFixed(2)} ${unitText}</strong>`;
-                resultDiv.style.display = 'block';
-            }
-        });
-    </script>
-   <a href="Portifolio.html" class="back-link"> UZ PORTFOLIO</a>
+    <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+        <a href="index.html"><h3 align="center" class="veidots">Atpakaļ uz portfolio</h3></a>
+    </footer>
 </body>
 </html>
